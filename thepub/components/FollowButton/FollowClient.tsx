@@ -1,8 +1,7 @@
-'use-client';
+'use client';
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import { start } from "repl";
 
 interface Props {
     targetUserId: string;

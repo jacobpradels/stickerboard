@@ -5,11 +5,11 @@ import { authOptions } from '../auth/[...nextauth]/route';
 
 export async function PUT(req: Request) {
     const session = await getServerSession(authOptions);
-    const currentUserEmail = session?.user?.email!;
+    const currentUserId = session?.user?.id!;
     const data = await req.json();
     data.age = Number(data.age);
     const user = await prisma.user.update({
-        where: { email: currentUserEmail },
+        where: { id: currentUserId },
         data,
     })
     return NextResponse.json(user);

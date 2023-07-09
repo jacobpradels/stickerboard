@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import Image from 'next/image'
+import FollowButton from '@/components/FollowButton/FollowButton'
 interface Props {
     params: {id: string};
 }
@@ -7,6 +8,7 @@ interface Props {
 
 export default async function UserPage({ params }: Props) {
     const user = await prisma.user.findUnique({where : {id : params.id}});
+    const follower_count = await prisma.follows.count({where : {followingId : params.id}});
     if (!user) {
         return <div>404</div>
     }
@@ -21,6 +23,10 @@ export default async function UserPage({ params }: Props) {
                 height={128}
                 alt="Your Name"/>
             </div>
+            {/* @ts-expect-error Server Component */}
+            <FollowButton targetUserId={user.id}/>
+            <p>{user.bio}</p>
+            <p>{follower_count} followers</p>
         </main>
     )
 }
