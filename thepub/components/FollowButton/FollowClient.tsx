@@ -7,7 +7,7 @@ interface Props {
     targetUserId: string;
     isFollowing: boolean;
 }
-export default async function FollowClient({targetUserId, isFollowing} : Props) {
+export default function FollowClient({targetUserId, isFollowing} : Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [isFetching, setIsFetching] = useState(false);
@@ -42,13 +42,13 @@ export default async function FollowClient({targetUserId, isFollowing} : Props) 
     }
     if (isFollowing) {
         return (
-            <button onClick={unfollow}>
+            <button onClick={unfollow} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-auto">
                 {!isMutating ? 'Unfollow' : '...'}
             </button>
         )
     } else {
         return (
-            <button onClick={follow}>
+            <button onClick={follow} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 {!isMutating ? 'Follow' : '...'}
             </button>
         )
